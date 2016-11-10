@@ -1,0 +1,102 @@
+
+body{
+	/*font-family:Arial,sans-serif;*/
+	/*align = "left| justify";*/
+	font-size: 13px;
+
+}
+
+.mdl-title {
+	 color: #D2691E;
+	font-weight: bold;
+	font-size: 15px;
+	
+	font-family:initial;
+	
+	 text-align: justify;
+	}
+
+.mdl-authors {
+		
+	color: #1CAB25;	
+	font-size: 14px;
+	font-style: italic;
+	
+
+}
+.mdl-authors:before { content: ' '; display: block; }
+.mdl-journal:before { content: ' '; display: block; }
+
+.mdl-journal{
+	/*font-style: italic;*/
+	/*color: #25B1E3;*/
+	font-size: 14px;
+
+}
+.mdl-year {
+	font-weight: bold;
+	color: blue;
+	font-size: 14px;
+
+
+}
+
+.cite{
+	 text-align: left;
+	 color: #1CAB25;
+	 font-family: Helvetica,Arial,sans-serif;
+	}
+
+.download{
+	 /*text-align: right;*/
+	 /*vertical-align*/: middle;
+	 /*text-decoration: underline;*/
+	 /*color: blue;*/
+	 text-align: center;
+
+	}
+
+legend {
+	/*font-style: italic;*/
+	  margin-left: 3px;
+padding-left: 12px;
+  padding-top: 2px;
+  font-size: 20px;
+	font-family:initial;
+
+}
+
+fieldset {
+ 
+	padding-left: 2px;
+	border-style: none;
+}
+
+.link{
+    color: #D2691E;
+}
+
+.link {
+    text-decoration: none;
+}
+
+.mdl-title:hover {
+    text-decoration: underline;
+}
+a {
+	 color: #D2691E;
+	font-weight: bold;
+	
+	
+	font-family:initial;
+	
+	 text-align: justify;
+	 }
+	 a:after { content: ' '; display: block; }
+#articles {
+width: 20%; 
+margin-left:20px;
+margin-bottom: 30px;
+border: 1px solid #C6C1C1 !important;
+border-radius: 16px !important;
+}
