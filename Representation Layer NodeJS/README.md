@@ -15,7 +15,3 @@ Two routes represent two partners.
 the response of mr-dlib API is put in extracted in a list of recommended articles then rendered in views/gesis.ejs and views/gesis2.ejs
 
 The styles are stylesheets in Public/stylesheets/style.css
-
-++++++++++++++++++++++++++++++++++++++++
-
-The code in Gesis Page folder represents the Gesis application.

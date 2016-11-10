@@ -1,0 +1,31 @@
+<html>
+<meta charset="utf-8">
+<head>
+	<title> Recommended Articles</title>
+</head>	
+
+<body>
+
+	<fieldset>
+		<legend>See Also</legend>
+
+	<% for(var i=0; i < xml.length; i++) { %>
+	
+<div>
+<%- xml[i].snippet[2]._.replace("<![CDATA[","").replace("]]>","") %>
+<br>
+<div> <span class="cite">Cited by 6,</span>  &nbsp;<a href="#" target="_blank">Download </a></div>
+</div>
+<br>
+
+
+<% } %>
+
+	</fieldset>
+
+
+
+	
+	
+</body>
+
