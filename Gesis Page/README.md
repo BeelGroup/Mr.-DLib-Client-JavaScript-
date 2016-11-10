@@ -1,3 +1,3 @@
-The partner only needs to add the div tag for id, the script link and the iframe tag to their HTML.
+The partner only needs to add the id div tag for id, the script link and the article div tag for display to their HTML.
 
-The javascript does not have to be in the partner's side. It can be located remotely.
+The javascript and stylesheet do not have to be in the partner's side. They are located remotely.
