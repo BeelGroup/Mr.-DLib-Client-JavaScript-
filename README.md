@@ -5,3 +5,5 @@
 - The stylesheet contains the css for the styling the recommeded list.
 
 - The javascript contains the js for getting the article id in the partner's page then loading the recommended article list in the page.
+
+- Demo: http://widget.mr-dlib.com/gesis%20page/Gesis%20Page/index.html
