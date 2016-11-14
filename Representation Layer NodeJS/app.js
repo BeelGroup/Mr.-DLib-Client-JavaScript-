@@ -41,8 +41,8 @@ app.get('/gesis/:id', gesis.gesis);
 //controller handler in routes/gesis2
 app.get('/gesis2/:id', gesis2.gesis2); 
 
-//route for displaying recommended articles for the second partner => partner name/articleID
-//controller handler in routes/gesis2
+//route for displaying recommended articles for the third partner => partner name/articleID
+//controller handler in routes/gesis3
 app.get('/gesis3/:id', gesis3.gesis3);
 
 
