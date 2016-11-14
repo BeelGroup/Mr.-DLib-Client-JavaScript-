@@ -1,0 +1,43 @@
+.rec{
+	font-family: Arial,Verdana,Helvetica,sans-serif !important;
+font: 13px/1.231 arial,helvetica,clean,sans-serif;
+}
+
+.mdl-authors {
+
+font-size: 80%;
+}
+
+.mdl-title {
+text-align: left;
+
+color: #44596E;
+text-decoration: none;
+
+}
+
+
+.mdl-journal{
+font-size: 80%;
+}
+
+#articles {
+width: 200px; 
+margin-left:20px;
+margin-bottom: 30px;
+border: 1px solid #C6C1C1 !important;
+border-radius: 16px !important;
+}
+
+fieldset {
+	
+	border-style: none;
+}
+
+hr {
+    border: 0px none;
+    height: 1px;
+    background-color: #EEE;
+    color: #EEE;
+    margin-bottom: 1em;
+}
