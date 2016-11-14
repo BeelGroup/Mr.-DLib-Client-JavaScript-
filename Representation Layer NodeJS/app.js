@@ -7,6 +7,7 @@ var express = require('express')
   , routes = require('./routes')
   , gesis = require('./routes/gesis')
   , gesis2 = require('./routes/gesis2')
+  , gesis3 = require('./routes/gesis3')
   , http = require('http')
   , path = require('path')
    , request = require('request');
@@ -36,9 +37,13 @@ app.get('/', routes.index);
 //controller handler in routes/gesis
 app.get('/gesis/:id', gesis.gesis); 
 
-//route for displaying recommended articles for the first partner => partner name/articleID
+//route for displaying recommended articles for the second partner => partner name/articleID
 //controller handler in routes/gesis2
-app.get('/gesis2/:id', gesis2.gesis2); // route for displaying recommended articles for the first partner => partner name/articleID
+app.get('/gesis2/:id', gesis2.gesis2); 
+
+//route for displaying recommended articles for the second partner => partner name/articleID
+//controller handler in routes/gesis2
+app.get('/gesis3/:id', gesis3.gesis3);
 
 
 http.createServer(app).listen(app.get('port'), function(){
