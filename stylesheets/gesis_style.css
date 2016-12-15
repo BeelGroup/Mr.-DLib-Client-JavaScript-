@@ -1,6 +1,10 @@
 .rec{
-	font-family: Arial,Verdana,Helvetica,sans-serif !important;
+font-family: Arial,Verdana,Helvetica,sans-serif !important;
 font: 13px/1.231 arial,helvetica,clean,sans-serif;
+list-style: outside none none;
+padding: 0px 13px 0px 0px;
+margin: 0px;
+text-align: left;
 }
 
 .mdl-authors {
