@@ -45,3 +45,10 @@ hr {
     color: #EEE;
     margin-bottom: 1em;
 }
+
+     .loading {
+                font-size: 25px;
+                 text-align: center;
+                 padding: 10px 10px 10px 10px;
+               
+            }
