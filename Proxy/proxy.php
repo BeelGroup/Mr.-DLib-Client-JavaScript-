@@ -46,7 +46,7 @@ if ($xml === false) {
 	
 	<div class='article_link'>
 	 
-	<a class= 'mdl-title' href='<?=$rec[$x]->fallback_url?>' target='_blank' onclick="makeDliblog('<?=$rec[$x]->click_url?>','1')"><?=$rec[$x]->title?></a>
+	<a class= 'mdl-title' href='<?=$rec[$x]->fallback_url?>' target='_blank' onclick="makeDliblog('http://GesisHost/proxy.php?url=<?=$rec[$x]->click_url?>','1')"><?=$rec[$x]->title?></a>
 	<?php if ($rec[$x]->year > 0) { ?>
 	<span class='mdl-year'>(<?=$year = $rec[$x]->year?>)</span>
 	<?php } ?>
