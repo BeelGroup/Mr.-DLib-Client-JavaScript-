@@ -43,7 +43,7 @@ if ($xml === false) {
 <ul class= "rec">
 <?php for($x = 0; $x < $reclength; $x++) { ?>
 	<li>
-	<div class='mdl-authors'><?=$rec[$x]->authors?> </div> 
+	<div class='mdl-authors'><?=$rec[$x]->author_names?> </div> 
 	
 	<div class='article_link'>
 	 
