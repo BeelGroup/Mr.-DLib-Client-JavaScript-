@@ -116,7 +116,7 @@ if ( !$url ) {
   curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
   
   curl_setopt( $ch, CURLOPT_USERAGENT, $_GET['user_agent'] ? $_GET['user_agent'] : $_SERVER['HTTP_USER_AGENT'] );
-  
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   list( $header, $contents ) = preg_split( '/([\r\n][\r\n])\\1/', curl_exec( $ch ), 2 );
   
   $status = curl_getinfo( $ch );
