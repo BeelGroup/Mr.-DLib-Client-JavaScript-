@@ -9,13 +9,14 @@ if($verb == 'GET' and isset($_GET['id'])){
 	$curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api-dev.mr-dlib.org/v1/documents/".$_GET["id"]."/related_documents",
+  CURLOPT_URL => "https://api.mr-dlib.org/v1/documents/".$_GET["id"]."/related_documents",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "GET",
   CURLOPT_HTTPHEADER => array(
     "cache-control: no-cache"
   ),
+  CURLOPT_SSL_VERIFYPEER => false,
 ));
 
 $response = curl_exec($curl);
