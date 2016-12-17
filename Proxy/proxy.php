@@ -1,5 +1,3 @@
-
-
 <?php
 	header('Access-Control-Allow-Origin: *');
 	$verb = $_SERVER['REQUEST_METHOD'];
