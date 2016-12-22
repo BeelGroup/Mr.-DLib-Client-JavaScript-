@@ -5,3 +5,11 @@ $( document ).ready(function() {
 	var section = document.getElementById("articles");
     $( section ).load(site);
     } ); 
+
+function makeDliblog(aurl,isdlib)
+{
+    if(isdlib=='1'){
+        var img = new Image();
+        img.src = aurl;
+    }
+}
