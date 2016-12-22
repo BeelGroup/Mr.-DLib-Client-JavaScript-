@@ -1,7 +1,7 @@
 <?php
 	header('Access-Control-Allow-Origin: *');
 	$verb = $_SERVER['REQUEST_METHOD'];
-	echo $_SERVER['HTTP_REFERER'];
+	
 if($verb == 'GET' and isset($_GET['id'])){
 	$curl = curl_init();
 curl_setopt_array($curl, array(
