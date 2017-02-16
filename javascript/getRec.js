@@ -9,7 +9,7 @@ loading.appendChild(br);
 loading.appendChild(img);
 
 var  id = document.getElementById("gesis_id").innerHTML; 
-var site = "http://sowiportbeta.gesis.org/Dlib/Proxy.php?id=" + id;
+var site = "http://sowiport.gesis.org/Dlib/Proxy?id=" + id;
 var section = document.getElementById("articles");
     $( section ).load(site);
     } );   
