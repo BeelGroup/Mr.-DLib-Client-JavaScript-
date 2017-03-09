@@ -70,7 +70,7 @@ if ($xml === false) {
 	<?php }else{ ?>
 	<?=$rec[$x]->fallback_url?> 
 	<?php } ?>
-	' target='_blank' onclick="makeDliblog('http://js-client.demo.mr-dlib.org/proxy/Proxy?url=<?=$rec[$x]->click_url?>','1')"><?=$rec[$x]->title?></a>
+	' target='_blank' onmouseup="makeDliblog('http://js-client.demo.mr-dlib.org/proxy/Proxy?url=<?=$rec[$x]->click_url?>','1')"><?=$rec[$x]->title?></a>
 	<?php if ($rec[$x]->year > 0) { ?>
 	<span class='mdl-year'>(<?=$year = $rec[$x]->year?>)</span>
 	<?php } ?>
