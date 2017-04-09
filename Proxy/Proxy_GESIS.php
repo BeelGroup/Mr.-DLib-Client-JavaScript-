@@ -13,7 +13,7 @@ class Proxy extends Action {
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.mr-dlib.org/v1/documents/" . $_GET["id"] . "/related_documents",
+                CURLOPT_URL => "https://api.mr-dlib.org/v1/documents/". $_GET["id"]."/related_documents",
                 //CURLOPT_URL => "https://api-beta.mr-dlib.org/v1/documents/" . $_GET["id"] . "/related_documents",
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
@@ -29,12 +29,32 @@ class Proxy extends Action {
 
             curl_close($curl);
             $xml = simplexml_load_string($response);
-            if ($xml === false) {
-                echo "Failed loading recommendations: ";
+            if (($xml === false OR count($xml->related_articles->related_article) === 0) AND isset($_GET['title'])) {
+                curl_setopt_array($curl, array(
+		        CURLOPT_URL => "https://api.mr-dlib.org/v1/documents/".rawurlencode($_GET["title"])."/related_documents",
+		        CURLOPT_RETURNTRANSFER => true,
+		        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		        CURLOPT_CUSTOMREQUEST => "GET",
+		        CURLOPT_HTTPHEADER => array(
+			    "cache-control: no-cache"
+		         ),
+
+		        CURLOPT_SSL_VERIFYPEER => false,
+		        ));
+                $response = curl_exec($curl);
+		        $err = curl_error($curl);
+		        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+		        curl_close($curl);
+		        $xml = simplexml_load_string($response);
+            }
+		    if ($xml === false OR count($xml->related_articles->related_article) === 0)
+                {echo "Failed loading recommendations: ";
                 foreach (libxml_get_errors() as $error) {
                     echo "<br>", $error->message;
                 }
-            } else {
+             }
+            else {
 
                 $rec = $xml->related_articles->related_article;
                 $reclength = count($rec);
@@ -46,6 +66,7 @@ class Proxy extends Action {
                             <div class="sidegroup">		
                                 <ul class= "similar">
                                     <?php for ($x = 0; $x < $reclength; $x++) { ?>
+                                        <?php $tooltip= (string) $rec[$x]->title ?> 
                                         <li>
                                             <?php
                                             // $anames = (string) $rec[$x]->authors;
@@ -61,14 +82,14 @@ class Proxy extends Action {
 
 
                                             <div class='article_link'>
-                                                <a class= 'mdl-title' href='<?= str_replace("sowiport.gesis.org", $_SERVER['SERVER_NAME'], $rec[$x]->fallback_url); ?>' target='_blank' onclick="makelog('http://<? echo $_SERVER[ 'SERVER_NAME' ]; ?>/Session/Analysis?do=log&array[]=<? echo session_id(); ?>&array[]=<? echo $_SERVER[ 'HTTP_USER_AGENT' ]; ?>&array[]=<? echo $_SERVER[ 'REMOTE_ADDR']; ?>&array[]=<? echo str_replace(array("http://sowiportdev.gesis.intra", "http://sowiportbeta.gesis.org", "http://sowiport.gesis.org"),'',$rec[$x]->fallback_url); ?>&array[]=/search/id/<? echo $_GET['id']; ?>&array[]=goto_similar_dlib&array[]=goto&array[]=-1&array[]=<? $dlibk=explode("access_key=",$rec[$x]->click_url); $dlibkt=explode("&",$dlibk[1]); echo $dlibkt[0]; ?>');makeDliblog('http://<? echo $_SERVER[ 'SERVER_NAME' ]; ?>/Dlib/Proxy?url=<?= $rec[$x]->click_url ?>','1');"><?= $rec[$x]->title ?></a>	<?php if ($rec[$x]->year > 0) { ?>
+                                                <a id='<?=$x?>' class= 'mdl-title abstract-tooltip' href='<?= str_replace("sowiport.gesis.org", $_SERVER['SERVER_NAME'], $rec[$x]->fallback_url); ?>' target='_blank' onclick="makelog('http://<? echo $_SERVER[ 'SERVER_NAME' ]; ?>/Session/Analysis?do=log&array[]=<? echo session_id(); ?>&array[]=<? echo $_SERVER[ 'HTTP_USER_AGENT' ]; ?>&array[]=<? echo $_SERVER[ 'REMOTE_ADDR']; ?>&array[]=<? echo str_replace(array("http://sowiportdev.gesis.intra", "http://sowiportbeta.gesis.org", "http://sowiport.gesis.org"),'',$rec[$x]->fallback_url); ?>&array[]=/search/id/<? echo $_GET['id']; ?>&array[]=goto_similar_dlib&array[]=goto&array[]=-1&array[]=<? $dlibk=explode("access_key=",$rec[$x]->click_url); $dlibkt=explode("&",$dlibk[1]); echo $dlibkt[0]; ?>');" onmouseup="makeDliblog('http://<? echo $_SERVER[ 'SERVER_NAME' ]; ?>/Dlib/Proxy?url=<?= $rec[$x]->click_url ?>','1');" data-toggle="tooltip" title=$tooltip><?= $rec[$x]->title ?></a>	<?php if ($rec[$x]->year > 0) { ?>
                                                     <span class='mdl-year'>(<?= $year = $rec[$x]->year ?>)</span>
                                                 <?php } ?>
                                             </div>
                                             <?php if ($rec[$x]->published_in != '') { ?>
                                                 <span class='mdl-journal'><span style="font-size: 80%">In: <?= $rec[$x]->published_in ?>. </span></span>
-
                                             <?php } ?>
+                                            <div class='cite'><span>165 Readers </span></div>
                                         </li>
                                         <hr>
 
