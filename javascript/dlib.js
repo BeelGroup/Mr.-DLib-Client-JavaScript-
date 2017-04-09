@@ -1,5 +1,5 @@
 $( window ).ready(function () {
-   
+   get_rec();
 }); 
 
 function get_rec(){
