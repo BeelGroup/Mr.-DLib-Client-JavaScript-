@@ -46,9 +46,27 @@ hr {
     margin-bottom: 1em;
 }
 
-     #loading {
-                font-size: 25px;
-                 text-align: center;
-                 padding: 10px 10px 10px 10px;
+#loading {
+    font-size: 25px;
+    text-align: center;
+    padding: 10px 10px 10px 10px;
                
-            }
+}
+.cite {
+font-size: 90%;
+padding-top: 5px;	
+color: #44596E;
+}
+.keywords{
+padding-top: 5px;
+color: #737070;
+}
+
+.tooltip-arrow, .abstract-tooltip + .tooltip > .tooltip-inner 
+{
+
+background-color: #ffffff;
+color:black;
+border:1px solid #C6C1C1 ;
+
+text-align:left;  }
