@@ -26,10 +26,10 @@ font-size: 80%;
 }
 
 #articles {
-width: 200px; 
+width: 250px; 
 margin-left:20px;
 margin-bottom: 30px;
-border: 1px solid #C6C1C1 !important;
+border: 0px solid #C6C1C1 !important;
 border-radius: 16px !important;
 }
 
@@ -47,7 +47,7 @@ hr {
 }
 
 #loading {
-    font-size: 25px;
+    font-size: 10px;
     text-align: center;
     padding: 10px 10px 10px 10px;
                
@@ -59,7 +59,7 @@ color: #44596E;
 }
 .keywords{
 padding-top: 5px;
-color: #737070;
+color: #3e3a3a;
 }
 
 .tooltip-arrow, .abstract-tooltip + .tooltip > .tooltip-inner 
@@ -70,3 +70,12 @@ color:black;
 border:1px solid #C6C1C1 ;
 
 text-align:left;  }
+
+.referesh
+{
+ margin-left: 100px;
+}
+
+.glyphicon {
+    font-size: 15px;
+}
