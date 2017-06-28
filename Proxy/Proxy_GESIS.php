@@ -66,7 +66,8 @@ class Proxy extends Action {
                             <div class="sidegroup">		
                                 <ul class= "similar">
                                     <?php for ($x = 0; $x < $reclength; $x++) { ?>
-                                        <?php $tooltip= (string) $rec[$x]->title ?> 
+                                        <?php $abstract= (string) $rec[$x]->abstract?> 
+					<?php $keywords= (string) $rec[$x]->keywords?>  
                                         <li>
                                             <?php
                                             // $anames = (string) $rec[$x]->authors;
@@ -85,6 +86,9 @@ class Proxy extends Action {
                                                 <a id='<?=$x?>' class= 'mdl-title abstract-tooltip' href='<?= str_replace("sowiport.gesis.org", $_SERVER['SERVER_NAME'], $rec[$x]->fallback_url); ?>' target='_blank' onclick="makelog('http://<? echo $_SERVER[ 'SERVER_NAME' ]; ?>/Session/Analysis?do=log&array[]=<? echo session_id(); ?>&array[]=<? echo $_SERVER[ 'HTTP_USER_AGENT' ]; ?>&array[]=<? echo $_SERVER[ 'REMOTE_ADDR']; ?>&array[]=<? echo str_replace(array("http://sowiportdev.gesis.intra", "http://sowiportbeta.gesis.org", "http://sowiport.gesis.org"),'',$rec[$x]->fallback_url); ?>&array[]=/search/id/<? echo $_GET['id']; ?>&array[]=goto_similar_dlib&array[]=goto&array[]=-1&array[]=<? $dlibk=explode("access_key=",$rec[$x]->click_url); $dlibkt=explode("&",$dlibk[1]); echo $dlibkt[0]; ?>');" onmouseup="makeDliblog('http://<? echo $_SERVER[ 'SERVER_NAME' ]; ?>/Dlib/Proxy?url=<?= $rec[$x]->click_url ?>','1');" data-toggle="tooltip" title=$tooltip><?= $rec[$x]->title ?></a>	<?php if ($rec[$x]->year > 0) { ?>
                                                     <span class='mdl-year'>(<?= $year = $rec[$x]->year ?>)</span>
                                                 <?php } ?>
+						    <a class='abstract-tooltip' href="#" data-toggle="tooltip" title="<em>Abstract:</em> <div><?=$abstract?></div> <div class='keywords'><em>Keywords:</em> <span><?=$rec[$x]->keywords?></span></div>">
+							<span class="glyphicon glyphicon-info-sign"></span>
+						   </a>
                                             </div>
                                             <?php if ($rec[$x]->published_in != '') { ?>
                                                 <span class='mdl-journal'><span style="font-size: 80%">In: <?= $rec[$x]->published_in ?>. </span></span>
@@ -97,6 +101,10 @@ class Proxy extends Action {
 
 
                                 </ul>
+				    	
+					 <button type="button" class="btn btn-default btn-sm referesh">
+        				  <span class="glyphicon glyphicon-refresh"></span> Refresh the list
+       					 </button>
                             </div>
                         </fieldset>
 
