@@ -1,15 +1,20 @@
-<!--
-This proxy is located between the JavaScript widget inserted into a content partner's website and
-Mr. DLib's API.
-
-Its purpose is to route the JavaScript widget's request to the correct API calls.
-
-The proxy has to be addressed using this format:
-[host]/proxy?id=[MDL's id_original of the publication]&title=[publication's title]
--->
-
 <?php
+  /*
+   * This proxy is located between the JavaScript widget inserted into a content partner's website and
+   * Mr. DLib's API.
+   * 
+   * Its purpose is to route the JavaScript widget's request to the correct API calls.
+   *
+   * The proxy has to be addressed using this format:
+   * [host]/proxy?id=[MDL's id_original of the publication]&title=[publication's title]
+   */
+
+  
+  
   /* --- (1) LOAD CONFIGURATION --- */
+
+  // prevent CORS conflicts
+  header('Access-Control-Allow-Origin: *');
 
   /**
    * Gets a parameter from the URL using $_GET. Checks if it is set.
@@ -29,9 +34,6 @@ The proxy has to be addressed using this format:
 
     return $parameter;
   }
-
-  // prevent CORS conflicts
-  header('Access-Control-Allow-Origin: *');
 
   // retrieve configuration of proxy
   $config = json_decode(file_get_contents('config.json'));
@@ -112,13 +114,13 @@ The proxy has to be addressed using this format:
   }
 
   // construct URL to retrieve recommendations using given id
-  $retrieval_url_using_id = "https://".$api.".mr-dlib.org/v1/documents/".$id."/related_documents";
+  $retrieval_url_using_id = "https://".$api.".mr-dlib.org/v1/documents/".$id."/related_documents?app_id=mediatum";
 	$xml = retrieveXmlFromUrl($retrieval_url_using_id);
 
   // check if recommendations are retrieved using the given ID, if that fails, retrieve
   // recommendations using the given title
   if (!isXmlValid($xml)) {
-    $retrieval_url_using_title = "https://".$api.".mr-dlib.org/v1/documents/".$title."/related_documents";
+    $retrieval_url_using_title = "https://".$api.".mr-dlib.org/v1/documents/".$title."/related_documents?app_id=mediatum";
     $xml = retrieveXmlFromUrl($retrieval_url_using_title);
 
     if (!isXmlValid($xml)) {
@@ -129,8 +131,6 @@ The proxy has to be addressed using this format:
   // extract recommendations and number of recommendations from XML
   $recommendations = $xml->related_articles->related_article;
   $numRecommendations = count($recommendations);
-
-  console.log($recommendations);
 
 
 
