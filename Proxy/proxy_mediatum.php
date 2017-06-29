@@ -9,7 +9,7 @@
    * [host]/proxy?id=[MDL's id_original of the publication]&title=[publication's title]
    */
 
-  
+
   
   /* --- (1) LOAD CONFIGURATION --- */
 
@@ -115,7 +115,7 @@
 
   // construct URL to retrieve recommendations using given id
   $retrieval_url_using_id = "https://".$api.".mr-dlib.org/v1/documents/".$id."/related_documents?app_id=mediatum";
-	$xml = retrieveXmlFromUrl($retrieval_url_using_id);
+  $xml = retrieveXmlFromUrl($retrieval_url_using_id);
 
   // check if recommendations are retrieved using the given ID, if that fails, retrieve
   // recommendations using the given title
@@ -136,7 +136,7 @@
 
   /* --- (3) GENERATE HTML SNIPPET FOR RECOMMENDATIONS ---
    * Iterate over recommendations and embed the relevant data.
-  */
+   */
 ?>
 <!DOCTYPE html>
 <html>
@@ -146,7 +146,12 @@
   // iterate over recommendations
   for($i = 0; $i < $numRecommendations; $i++) {
 ?>
-      <li><?=$recommendations[$i]->title?></li> 
+      <li>
+        <a href="https://mediatum.ub.tum.de/<?=str_replace("mediatum-", "", $recommendations[$i]->attributes()['original_document_id']);?>">
+          <?=$recommendations[$i]->authors;?>
+          <b><?=$recommendations[$i]->title;?></b>
+        </a>
+      </li>
 <?php
   }
 ?>
