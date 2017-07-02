@@ -141,6 +141,7 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <div id="mrdlib_heading">&Auml;hnliche Publikationen</div>
     <ul>
 <?php
   // iterate over recommendations
@@ -148,8 +149,8 @@
 ?>
       <li>
         <a href="https://mediatum.ub.tum.de/<?=str_replace("mediatum-", "", $recommendations[$i]->attributes()['original_document_id']);?>">
-          <?=$recommendations[$i]->authors;?>
-          <b><?=$recommendations[$i]->title;?></b>
+          <div id="mrdlib_recommendation_author"><?=$recommendations[$i]->authors;?></div>
+          <div id="mrdlib_recommendation_title"><?=$recommendations[$i]->title;?></div>
         </a>
       </li>
 <?php
