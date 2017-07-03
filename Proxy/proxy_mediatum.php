@@ -148,7 +148,7 @@
   for($i = 0; $i < $numRecommendations; $i++) {
 ?>
       <li>
-        <a href="https://mediatum.ub.tum.de/<?=str_replace("mediatum-", "", $recommendations[$i]->attributes()['original_document_id']);?>">
+        <a href="<?=$recommendations[$i]->click_url;?>">
           <div id="mrdlib_recommendation_author"><?=$recommendations[$i]->authors;?></div>
           <div id="mrdlib_recommendation_title"><?=$recommendations[$i]->title;?></div>
         </a>
