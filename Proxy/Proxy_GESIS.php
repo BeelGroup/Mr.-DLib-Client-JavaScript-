@@ -95,7 +95,7 @@ class Proxy extends Action {
                                             <?php if ($rec[$x]->published_in != '') { ?>
                                                 <span class='mdl-journal'><span style="font-size: 80%">In: <?= $rec[$x]->published_in ?>. </span></span>
                                             <?php } ?>
-                                            <div class='cite'><span>165 Readers </span></div>
+                                            
                                         </li>
                                         <hr>
 
