@@ -146,10 +146,20 @@
 <?php
   // iterate over recommendations
   for($i = 0; $i < $numRecommendations; $i++) {
+    // crop more than two authors and replace them with "et al."
+    $authorNames = (string) $recommendations[$i]->authors;
+    $authorNamesArray = explode(",", $authorNames);
+    $author = $authorNamesArray[0];
+    if (count($authorNamesArray) > 1) {
+      $author = $author.', '.$authorNamesArray[1];
+    }
+    if (count($authorNamesArray) > 2) {
+      $author = $author.' et al.';
+    }
 ?>
       <li>
         <a href="<?=$recommendations[$i]->click_url;?>">
-          <div id="mrdlib_recommendation_author"><?=$recommendations[$i]->authors;?></div>
+          <div id="mrdlib_recommendation_author"><?=$author;?></div>
           <div id="mrdlib_recommendation_title"><?=$recommendations[$i]->title;?></div>
         </a>
       </li>
