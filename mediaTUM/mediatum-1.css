@@ -1,0 +1,114 @@
+#mrdlib_container {
+  background-color: #eef2f5;
+  color: #333333;
+  font-family: arial, helvetica, sans-serif;
+  font-size: 80%;
+  padding: 10px;
+}
+
+#mrdlib_header {
+  display: block;
+  font-size: 95%;
+}
+
+#mrdlib_body {
+  display: block;
+  overflow: auto;
+  padding: 0px;
+}
+
+#mrdlib_body ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+#mrdlib_body ul li {
+  border-left-style: solid;
+  border-left-color: #a3b7c7;
+  border-left-width: 1px;
+  float: left;
+  padding-left: 10px;
+  width: 150px;
+}
+
+#mrdlib_link_new_tab {
+  visibility: visible;
+}
+
+#mrdlib_link_same_tab {
+  display: none;
+}
+
+#mrdlib_body a {
+  color: #333333;
+  target-new: tab;
+  text-decoration: none;
+}
+
+#mrdlib_body a:hover {
+  color: #469be6;
+}
+
+#mrdlib_recommendation_author {
+  font-size: 72.5%;
+}
+
+#mrdlib_recommendation_title {
+  font-size: 95%;
+}
+
+#mrdlib_recommendation_publishedIn {
+  font-size: 72.5%;
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+
+.tooltip .tooltiptext {
+  background-color: white;
+  border-radius: 6px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  color: #333333;
+  padding: 10px;
+  position: absolute;
+  visibility: hidden;
+  width: 240px;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+#mrdlib_info_icon {
+  background: #ffffff;
+  border-color: #a3b7c7;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 1px;
+  color: #333333;
+  height: 10px;
+  font-size: 10px;
+  padding: 2px;
+  text-align: center;
+  width: 10px;
+}
+
+#mrdlib_footer a {
+  color: #333333;
+  font-size: 72.5%;
+  margin-top: 5px;
+  text-decoration: none;
+}
+
+#mrdlib_advanced_recommendations_form {
+  margin-top: 10px;
+}
+
+#mrdlib_advanced_recommendations_caption {
+  font-size: 72.5%;
+}
+
+#mrdlib_refresh_button {
+}
