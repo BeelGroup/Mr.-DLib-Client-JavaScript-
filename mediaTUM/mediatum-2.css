@@ -13,6 +13,7 @@
 
 #mrdlib_body {
   display: block;
+  margin-bottom: 10px;
   overflow: auto;
   padding: 0px;
 }
@@ -25,10 +26,13 @@
 #mrdlib_body ul li {
   border-left-style: solid;
   border-left-color: #a3b7c7;
-  border-left-width: 1px;
+  border-left-width: 2px;
   float: left;
+  padding-bottom: 500px;
+  margin-bottom: -500px;
+  margin-right: 5px;
   padding-left: 10px;
-  width: 150px;
+  width: 15%;
 }
 
 #mrdlib_link_new_tab {
@@ -59,9 +63,11 @@
 
 #mrdlib_recommendation_publishedIn {
   display: none;
+  float: left;
   font-size: 72.5%;
   margin-bottom: 3px;
   margin-top: 3px;
+  width: 70%;
 }
 
 .tooltip .tooltiptext {
@@ -83,35 +89,109 @@
 }
 
 #mrdlib_info_icon {
-  background: #ffffff;
-  border-color: #a3b7c7;
+  background: #eeeeee;
+  border-color: #798894;
   border-radius: 50%;
   border-style: solid;
   border-width: 1px;
   color: #333333;
   display: none;
-  height: 10px;
+  float: right;
   font-size: 10px;
+  height: 10px;
+  margin-right: 10px;
   padding: 2px;
   text-align: center;
   width: 10px;
 }
 
+#mrdlib_footer {
+  border-top-style: solid;
+  border-top-color: #a3b7c7;
+  border-top-width: 1px;
+  padding-top: 10px;
+}
+
 #mrdlib_footer a {
   color: #333333;
+  float: right;
   font-size: 72.5%;
   margin-top: 5px;
   text-decoration: none;
+}
+
+#mrdlib_logo_text {
+  color: #96999b;
+  display: inline;
+  font-size: 8px;
+  margin-right: 4px;
+}
+
+#mrdlib_logo {
+  vertical-align: middle;
 }
 
 #mrdlib_advanced_recommendations_form {
   margin-top: 10px;
 }
 
-#mrdlib_advanced_recommendations_caption {
-  font-size: 72.5%;
+#mrdlib_refresh_button {
+  color: #96999b;
+  cursor: pointer;
+  display: none;
+  float: left;
+  font-size: 13px;
+  margin-right: 12px;
 }
 
-#mrdlib_refresh_button {
+#mrdlib_refresh_button img {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+#mrdlib_settings_button {
+  color: #96999b;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#mrdlib_settings_button img {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* credits to https://www.w3schools.com/howto/howto_css_modals.asp */
+#mrdlib_modal {
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
   display: none;
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+#mrdlib_modal_content {
+  background-color: #fefefe;
+  border: 1px solid #888;
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+}
+
+#mrdlib_modal_closeButton {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#mrdlib_modal_closeButton:hover,
+#mrdlib_modal_closeButton:focus {
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
 }

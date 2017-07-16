@@ -101,6 +101,28 @@
    */
 
   /**
+   * Confirms the retrieval of a recommendation set by sending a POST request to a given URL.
+   *
+   * @param string    $xml    XML whose retrieval to confirm
+   * @param string    $url    URL to send POST request to
+   */
+  function confirmXmlRetrieval($xml, $url) {
+    $recommendationSetId = $xml->related_articles->attributes()[0];
+    $url = $url."recommendation_sets/".$recommendationSetId."confirmation_of_receipt";
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $url,
+      CURLOPT_POST => 1,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_HEADER => 0,
+      CURLOPT_RETURNTRANSFER => 1,
+    ));
+
+    curl_exec($curl);
+  }
+
+  /**
    * Retrieves the XML that is available under a given URL.
    * 
    * @param string    $url    URL under which the XML to retrieve is available
@@ -147,19 +169,27 @@
     return true;
   }
 
+  $baseUrl = "https://".$api.".mr-dlib.org/v1";
+
   // construct URL to retrieve recommendations using given id
-  $retrieval_url_using_id = "https://".$api.".mr-dlib.org/v1/documents/".$id."/related_documents?app_id=mediatum";
+  $retrieval_url_using_id = $baseUrl."/documents/".$id."/related_documents?app_id=mediatum";
   $xml = retrieveXmlFromUrl($retrieval_url_using_id);
 
   // check if recommendations are retrieved using the given ID, if that fails, retrieve
   // recommendations using the given title
   if (!isXmlValid($xml)) {
-    $retrieval_url_using_title = "https://".$api.".mr-dlib.org/v1/documents/".$title."/related_documents?app_id=mediatum";
+    $retrieval_url_using_title = $baseUrl."/documents/".$title."/related_documents?app_id=mediatum";
     $xml = retrieveXmlFromUrl($retrieval_url_using_title);
 
     if (!isXmlValid($xml)) {
       exit('Error: No recommendations could be retrieved.');
+    } else {
+      // POST confirmation to MDL server
+      confirmXmlRetrieval($xml, $baseUrl);
     }
+  } else {
+    // POST confirmation to MDL server
+    confirmXmlRetrieval($xml, $baseUrl);
   }
 
   // extract recommendations and number of recommendations from XML
@@ -241,7 +271,7 @@
   // handle enabled advanced recommendations - generate onclick and onmouseover handler if needed
   $eventHandler = '';
   if ($user != null) {
-    $eventHandler = ' onclick="log_click(\''.$title.'\');"';
+    $eventHandler = ' onclick="logEvent(\''.$recommendations[$i]->attributes()['original_document_id'].'\');"';
   }
 
   // save recommendation generation into string to avoid redundancy
@@ -259,7 +289,21 @@
     <a id="mrdlib_link_new_tab" href="<?=$recommendations[$i]->click_url;?>" target="_blank" <?=$eventHandler?>>
       <?=$recommendationDivs?>
     </a>
-    <div class="tooltip">
+<?php
+  // if cookies are enabled, log showing the abstract
+  $onMouseOverStatement = '';
+  if ($user != null) {
+    $onMouseOverStatement = 'onmouseover="logHoverStart(\''.$id.'\');" onmouseout="logHoverEnd(\''.$id.'\');"';
+  }
+
+  // if abstract is empty, hide tooltip
+  $tooltipVisibilityStatement = '';
+
+  if (strcmp($abstract, "") == 0) {
+    $tooltipVisibilityStatement = 'style="display: none;"';
+  }
+?>
+    <div class="tooltip" <?=$onMouseOverStatement?> <?=$tooltipVisibilityStatement?>>
       <div id="mrdlib_info_icon">i</div>
       <span class="tooltiptext"><?=$abstract;?></span>
     </div>
@@ -270,10 +314,21 @@
 </ul>
 </div>
 <div id="mrdlib_footer">
-  <form id="mrdlib_advanced_recommendations_form" onsubmit="update_cookie_setting();">
-    <input type="checkbox" name="mrdlib_advanced_recommendations" value="mrdlib_advanced_recommendations_enabled" /><span id="mrdlib_advanced_recommendations_caption"> Enable advanced recommendations. This will set a cookie that allows personalizing your recommendations.</span>
-    <input type="submit" value="Submit">
-  </form>
-  <a href="http://mr-dlib.org/">Powered by <img src="mdl_logo.gif" alt="Mr. DLib: Recommendations-as-a-service for Academia"></a>
-  <button id="mrdlib_refresh_button" onclick="get_rec()">Refresh</button>
+  <a href="http://mr-dlib.org/"><div id="mrdlib_logo_text">Powered by</div><img id="mrdlib_logo" src="mdl_logo.gif" alt="Mr. DLib: Recommendations-as-a-service for Academia"></a>
+  <div id="mrdlib_refresh_button" onclick="get_rec();"><img src="refresh_icon.png" />Refresh</div>
+  <div id="mrdlib_settings_button" onclick="displaySettingsDialog();"><img src="settings_icon.png" />Settings / Advanced Recommendations</div>
+</div>
+<div id="mrdlib_modal">
+  <div id="mrdlib_modal_content">
+    <span id="mrdlib_modal_closeButton" onclick="closeSettingsDialog();">&times;</span>
+    <p>Settings / Advanced Recommendations</p>
+    <form id="mrdlib_advanced_recommendations_form" onsubmit="updateCookieSetting(); return false;">
+      <p>The recommendations on $ServiceName are provided by Mr. DLib, a free and non-profit recommendation-as-a-service provider. Recommendations are only based on the content of the document that you are currently looking at. Mr. DLib is not collecting any private data from you.</p>
+      <p>However, to improve the recommendations, you may allow Mr. DLib to create an anonymous ID that is stored in a cookie and additionally transferred to the servers of Mr. DLib along with additional information such as your browser details (language, version, ...), screen details (screen size, resolution, ...) and your IP address.</p>
+      <input type="checkbox" name="mrdlib_advanced_recommendations" value="mrdlib_advanced_recommendations_enabled" /><span> I agree that Mr. DLib may collect additional data to improve the recommendations.</span>
+      <p>Please note that you can deactivate the advanced recommendations at any time by unchecking the boxes or deleting the cookies.</p>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
 </div>
