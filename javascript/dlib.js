@@ -4,6 +4,9 @@ $( window ).ready(function () {
     var loading = document.getElementById("loading");
     loading.appendChild(img);
     var id = document.getElementById("gesis_id").innerHTML;
+    var  doc_title = document.getElementById("doc_title_full").innerHTML; /////////////////////////////////////
+    var encodedtitle = encodeURI(doc_title); ////////////////////////
+    var title = encodedtitle.replace(/'/g, "`");
     var site = "/Dlib/Proxy?id=" + id +"&title=" + title; 
     var section = document.getElementById("articles");
     //$(section).load(site);
