@@ -4,7 +4,7 @@ $( window ).ready(function () {
     var loading = document.getElementById("loading");
     loading.appendChild(img);
     var id = document.getElementById("gesis_id").innerHTML;
-    var site = "/Dlib/Proxy?id=" + id;
+    var site = "/Dlib/Proxy?id=" + id +"&title=" + title; 
     var section = document.getElementById("articles");
     //$(section).load(site);
 	$.ajax({
