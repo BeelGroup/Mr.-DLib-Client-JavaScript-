@@ -29,11 +29,32 @@ class Proxy extends Action {
 
             curl_close($curl);
             $xml = simplexml_load_string($response);
-            if ($xml === false) {
-                echo "Failed loading recommendations: ";
-                foreach (libxml_get_errors() as $error) {
-                    echo "<br>", $error->message;
-                }
+            if ($xml === false OR count($xml->related_articles->related_article) === 0) AND isset($_GET['title'])) {
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+		  CURLOPT_URL => "https://".$api.".mr-dlib.org/v1/documents/".rawurlencode($_GET["title"])."/related_documents",
+          //CURLOPT_URL => "https://api-beta.mr-dlib.org/v1/documents/".rawurlencode($_GET["title"])."/related_documents",          
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => "GET",
+		  CURLOPT_HTTPHEADER => array(
+			"cache-control: no-cache"
+		  ),
+
+		  CURLOPT_SSL_VERIFYPEER => false,
+		));
+
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+		$http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+		curl_close($curl);
+		$xml = simplexml_load_string($response);
+			
+		}
+		if ($xml === false OR count($xml->related_articles->related_article) === 0)
+		{echo "Recommendations are currently not available";
+		echo rawurlencode($_GET["title"]);
             } else {
 
                 $rec = $xml->related_articles->related_article;
@@ -84,7 +105,7 @@ class Proxy extends Action {
             <?php } ?>
 
             <?php
-            echo $err;
+            
         } else if (isset($_GET['url']) or isset($_POST['url'])) {
 
             $enable_jsonp = false;
