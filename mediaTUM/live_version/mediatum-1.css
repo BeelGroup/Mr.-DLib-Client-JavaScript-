@@ -2,13 +2,18 @@
   background-color: #eef2f5;
   color: #333333;
   font-family: arial, helvetica, sans-serif;
-  font-size: 80%;
   padding: 10px;
 }
 
 #mrdlib_header {
+  border-bottom-style: solid;
+  border-bottom-color: #a3b7c7;
+  border-bottom-width: 1px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  color: #96999b;
   display: block;
-  font-size: 95%;
+  /* font-size: 95%; */
 }
 
 #mrdlib_body {
@@ -19,6 +24,7 @@
 }
 
 #mrdlib_body ul {
+  display: table;
   list-style-type: none;
   padding-left: 0px;
 }
@@ -26,13 +32,11 @@
 #mrdlib_body ul li {
   border-left-style: solid;
   border-left-color: #a3b7c7;
-  border-left-width: 2px;
-  float: left;
-  padding-bottom: 500px;
-  margin-bottom: -500px;
+  border-left-width: 1px;
+  display: table-cell;
   margin-right: 5px;
   padding-left: 10px;
-  width: 15%;
+  width: 14%;
 }
 
 #mrdlib_link_new_tab {
@@ -62,7 +66,6 @@
 }
 
 #mrdlib_recommendation_publishedIn {
-  display: none;
   float: left;
   font-size: 72.5%;
   margin-bottom: 3px;
@@ -95,14 +98,13 @@
   border-style: solid;
   border-width: 1px;
   color: #333333;
-  display: none;
   float: right;
-  font-size: 10px;
-  height: 10px;
+  font-size: 9px;
+  height: 12px;
   margin-right: 10px;
   padding: 2px;
   text-align: center;
-  width: 10px;
+  width: 12px;
 }
 
 #mrdlib_footer {
@@ -123,7 +125,7 @@
 #mrdlib_logo_text {
   color: #96999b;
   display: inline;
-  font-size: 8px;
+  font-size: 7px;
   margin-right: 4px;
 }
 
@@ -138,9 +140,8 @@
 #mrdlib_refresh_button {
   color: #96999b;
   cursor: pointer;
-  display: none;
   float: left;
-  font-size: 13px;
+  font-size: 12px;
   margin-right: 12px;
 }
 
@@ -178,8 +179,14 @@
   background-color: #fefefe;
   border: 1px solid #888;
   margin: 15% auto;
+  max-width: 600px;
   padding: 20px;
   width: 80%;
+}
+
+#mrdlib_modal_content a {
+  color: #469be6;
+  text-decoration: none;
 }
 
 #mrdlib_modal_closeButton {
