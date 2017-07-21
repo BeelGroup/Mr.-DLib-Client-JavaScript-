@@ -32,7 +32,7 @@ class Proxy extends Action {
             if ($xml === false OR count($xml->related_articles->related_article) === 0) AND isset($_GET['title'])) {
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-		  CURLOPT_URL => "https://".$api.".mr-dlib.org/v1/documents/".rawurlencode($_GET["title"])."/related_documents",
+		  CURLOPT_URL => "https://api.mr-dlib.org/v1/documents/".rawurlencode($_GET["title"])."/related_documents",
           //CURLOPT_URL => "https://api-beta.mr-dlib.org/v1/documents/".rawurlencode($_GET["title"])."/related_documents",          
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
