@@ -29,7 +29,7 @@ class Proxy extends Action {
 
             curl_close($curl);
             $xml = simplexml_load_string($response);
-            if ($xml === false OR count($xml->related_articles->related_article) === 0) AND isset($_GET['title'])) {
+            if (($xml === false OR count($xml->related_articles->related_article) === 0) AND isset($_GET['title'])) {
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
 		  CURLOPT_URL => "https://api.mr-dlib.org/v1/documents/".rawurlencode($_GET["title"])."/related_documents",
