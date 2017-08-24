@@ -6,7 +6,7 @@
    * Its purpose is to route the JavaScript widget's request to the correct API calls.
    *
    * The proxy has to be addressed using this format:
-   * [host]/proxy?id=[MDL's id_original of the publication]&title=[publication's title]
+   * [host]/proxy_mediatum_recommendation_retrieval?id=[MDL's id_original of the publication]&title=[publication's title]
    */
 
   // prevent CORS conflicts
@@ -271,7 +271,7 @@
   // handle enabled advanced recommendations - generate onclick and onmouseover handler if needed
   $eventHandler = '';
   if ($user != null) {
-    $eventHandler = ' onclick="logEvent(\''.$recommendations[$i]->attributes()['original_document_id'].'\');"';
+    $eventHandler = ' onclick="logEvent(\''.$recommendations[$i]->attributes()['original_document_id'].'\'); callClickUrlThroughProxy(\''.$recommendations[$i]->click_url.'\');"';
   }
 
   // save recommendation generation into string to avoid redundancy
@@ -283,10 +283,10 @@
 ?>
     <!-- two blocks of recommendation meta information are introduced, the difference is the link target -->
     <!-- this is done to allow controlling in which target a recommendation is opened via the CSS file -->
-    <a id="mrdlib_link_same_tab" href="<?=$recommendations[$i]->click_url;?>" <?=$eventHandler?>>
+    <a id="mrdlib_link_same_tab" href="<?=$recommendations[$i]->fallback_url;?>" <?=$eventHandler?>>
       <?=$recommendationDivs?>
     </a>
-    <a id="mrdlib_link_new_tab" href="<?=$recommendations[$i]->click_url;?>" target="_blank" <?=$eventHandler?>>
+    <a id="mrdlib_link_new_tab" href="<?=$recommendations[$i]->fallback_url;?>" target="_blank" <?=$eventHandler?>>
       <?=$recommendationDivs?>
     </a>
 <?php

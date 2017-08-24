@@ -141,6 +141,22 @@ function closeSettingsDialog() {
   modal.style.display = "none";
 }
 
+function callClickUrlThroughProxy(clickUrl) {
+  console.log(clickUrl)
+
+  var site = "proxy_mediatum_click_forward.php?click_url=" + clickUrl;
+
+  $.ajax({
+    type: "GET",
+    url: site,
+    async: true,
+    timeout: 3000,  // sets timeout to 3 seconds;
+    success: function(data) {
+      console.log(data);
+    }
+  });
+}
+
 /**
  * Retrieves recommendations from MDL's proxy server and displays them in the HTML/JavaScript widget.
  */
@@ -157,7 +173,7 @@ function get_rec() {
   // work over title
   var title = encodeURI(title).replace(/'/g, "`");
   // construct URL
-  var site = "proxy_mediatum.php?id=mediatum-" + id_original + "&title=" + title;
+  var site = "proxy_mediatum_recommendation_retrieval.php?id=mediatum-" + id_original + "&title=" + title;
   // check if user has enabled adavanced recommendations, and thus has a cookies identifying him,
   // in that case pass the user id to the proxy server
   if (areCookiesEnabled) {
