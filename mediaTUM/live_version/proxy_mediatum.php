@@ -1,19 +1,12 @@
 <?php
   /*
-   * comment in for debugging
-   * ini_set('display_errors', 1);
-   * ini_set('display_startup_errors', 1);
-   * error_reporting(E_ALL);
-   */
-
-  /*
    * This proxy is located between the JavaScript widget inserted into a content partner's website and
    * Mr. DLib's API.
-   *
+   * 
    * Its purpose is to route the JavaScript widget's request to the correct API calls.
    *
    * The proxy has to be addressed using this format:
-   * [host]/proxy?id=[MDL's id_original of the publication]&title=[publication's title]
+   * [host]/proxy_mediatum_recommendation_retrieval?id=[MDL's id_original of the publication]&title=[publication's title]
    */
 
   // prevent CORS conflicts
@@ -23,7 +16,7 @@
 
   /**
    * Gets a parameter from the URL using $_GET. Checks if it is set.
-   *
+   * 
    * @param string    $parameterName    name of parameter to get
    *
    * @return string   parameter
@@ -51,18 +44,18 @@
   /**
    * Maps a user id to a style sheet, thus conducts the splitting of the users into different test groups.
    * This is done by checking if the timestamp of the user is dividable by two.
-   *
+   * 
    * @param string    $userId    user id to map to a style sheet
    *
    * @return string   file name of the mapped style sheet
    */
   function mapUserIdToStyleSheet($userId) {
-    // test case
-    $styleSheet = 'https://mrdlib.ase.in.tum.de/mediatum-1.css';
+    // baseline
+    $styleSheet = 'mediatum-1.css';
 
     if (($userId % 2) == 0) {
-      // baseline
-      $styleSheet = 'https://mrdlib.ase.in.tum.de/mediatum-2.css';
+      // test case
+      $styleSheet = 'mediatum-2.css';
     }
 
     return $styleSheet;
@@ -70,13 +63,13 @@
 
   $styleSheet = 'mediatum-1.css';
   // check if cookies are enabled
-
+  
   if ($user != null) {
     // map user id to style
     $styleSheet = mapUserIdToStyleSheet($user);
   }
 ?>
-<link rel="stylesheet" href="<?=$styleSheet?>">
+<link rel="stylesheet" href="//mrdlib.ase.in.tum.de/<?=$styleSheet?>">
 <?php
 
   // retrieve configuration of proxy
@@ -131,7 +124,7 @@
 
   /**
    * Retrieves the XML that is available under a given URL.
-   *
+   * 
    * @param string    $url    URL under which the XML to retrieve is available
    *
    * @return string   XML
@@ -162,7 +155,7 @@
   /**
    * Checks if the given XML is valid and thus can be used for generating the HTML snippet
    * showing recommendations.
-   *
+   * 
    * @param string    $xml    XML to check
    *
    * @return boolean  true if valid, false otherwise
@@ -179,13 +172,13 @@
   $baseUrl = "https://".$api.".mr-dlib.org/v1";
 
   // construct URL to retrieve recommendations using given id
-  $retrieval_url_using_id = $baseUrl."/documents/".$id."/related_documents?app_id=mediatum_dev";
+  $retrieval_url_using_id = $baseUrl."/documents/".$id."/related_documents?app_id=mediatum";
   $xml = retrieveXmlFromUrl($retrieval_url_using_id);
 
   // check if recommendations are retrieved using the given ID, if that fails, retrieve
   // recommendations using the given title
   if (!isXmlValid($xml)) {
-    $retrieval_url_using_title = $baseUrl."/documents/".$title."/related_documents?app_id=mediatum_dev";
+    $retrieval_url_using_title = $baseUrl."/documents/".$title."/related_documents?app_id=mediatum";
     $xml = retrieveXmlFromUrl($retrieval_url_using_title);
 
     if (!isXmlValid($xml)) {
@@ -278,7 +271,7 @@
   // handle enabled advanced recommendations - generate onclick and onmouseover handler if needed
   $eventHandler = '';
   if ($user != null) {
-    $eventHandler = ' onclick="logEvent(\'click: '.$recommendations[$i]->attributes()['original_document_id'].'\');"';
+    $eventHandler = ' onclick="logEvent(\''.$recommendations[$i]->attributes()['original_document_id'].'\'); callClickUrlThroughProxy(\''.$recommendations[$i]->click_url.'\');"';
   }
 
   // save recommendation generation into string to avoid redundancy
@@ -290,10 +283,10 @@
 ?>
     <!-- two blocks of recommendation meta information are introduced, the difference is the link target -->
     <!-- this is done to allow controlling in which target a recommendation is opened via the CSS file -->
-    <a id="mrdlib_link_same_tab" href="<?=$recommendations[$i]->click_url;?>" <?=$eventHandler?>>
+    <a id="mrdlib_link_same_tab" href="<?=$recommendations[$i]->fallback_url;?>" <?=$eventHandler?>>
       <?=$recommendationDivs?>
     </a>
-    <a id="mrdlib_link_new_tab" href="<?=$recommendations[$i]->click_url;?>" target="_blank" <?=$eventHandler?>>
+    <a id="mrdlib_link_new_tab" href="<?=$recommendations[$i]->fallback_url;?>" target="_blank" <?=$eventHandler?>>
       <?=$recommendationDivs?>
     </a>
 <?php
@@ -321,25 +314,21 @@
 </ul>
 </div>
 <div id="mrdlib_footer">
-  <a href="http://mr-dlib.org/"><div id="mrdlib_logo_text">Powered by</div><img id="mrdlib_logo" src="https://mrdlib.ase.in.tum.de/mdl_logo.gif" alt="Mr. DLib: Recommendations-as-a-service for Academia"></a>
-  <div id="mrdlib_refresh_button" onclick="get_rec();"><img src="https://mrdlib.ase.in.tum.de/refresh_icon.png" />Refresh</div>
-  <div id="mrdlib_settings_button" onclick="displaySettingsDialog();"><img src="https://mrdlib.ase.in.tum.de/settings_icon.png" />An Nutzerstudie im Rahmen der Master-Arbeit Informatik von Max Wüstehube teilnehmen</div>
+  <a href="http://mr-dlib.org/"><div id="mrdlib_logo_text">Powered by</div><img id="mrdlib_logo" src="//mrdlib.ase.in.tum.de/mdl_logo.gif" alt="Mr. DLib: Recommendations-as-a-service for Academia"></a>
+  <div id="mrdlib_refresh_button" onclick="get_rec();"><img src="//mrdlib.ase.in.tum.de/refresh_icon.png" />Refresh</div>
+  <div id="mrdlib_settings_button" onclick="displaySettingsDialog();"><img src="//mrdlib.ase.in.tum.de/settings_icon.png" />Einstellungen / Fortgeschrittene Empfehlungen</div>
 </div>
 <div id="mrdlib_modal">
   <div id="mrdlib_modal_content">
     <span id="mrdlib_modal_closeButton" onclick="closeSettingsDialog();">&times;</span>
-    <p>An Nutzerstudie im Rahmen der Master-Arbeit Informatik von Max Wüstehube teilnehmen</p>
+    <p><b>Einstellungen / Fortgeschrittene Empfehlungen</b></p>
     <form id="mrdlib_advanced_recommendations_form" onsubmit="updateCookieSetting(); return false;">
-      <p>Dieser Empfehlungsmechanismus ist im Rahmen einer Abschlussarbeit (Master-Arbeit) im Studiengang Informatik an der Technischen Universität München in Zusammenarbeit mit dd
-em Empfehlungsdienst Mr. DLib enstanden.</p>
-      <p>Teil dieser Abschlussarbeit ist eine Evaluation der realisierten Lösung durchzuführen. Dafür wurden zwei Varianten der Nutzer-Oberfläche umgesetzt. Dadurch die nachfolgg
-ende Checkbox anzuklicken wird ein Cookie gesetzt und fortan eine der beiden Oberflächen angezeigt. Ferner wird in Cookies gespeichert welche Empfehlungen wann angeklickt wurden unn
-d wann über ggf. angezeigte Info-Icons der Empfehlungen gehovert wurde. Diese Daten sind Teil der Evaluation. Diese Checkbox ist  für Teilnehmer der Nutzerstudie vorgesehen, die dd
-ie Test-Webseite im Rahmen eines geleiteten Experiments bedienen. Bitte setzen Sie die Checkbox nur, wenn Sie damit einverstanden sind.</p>
-      <input type="checkbox" name="mrdlib_advanced_recommendations" value="mrdlib_advanced_recommendations_enabled" /><span> An Nutzerstudie teilnehmen. Cookies setzen.</span><br /><br />
-      <p>Hinweis: Wird die Markierung in der Checkbox entfernt, werden die Cookies wieder entfernt.</p>
-      <input type="submit" value="Absenden"><br /><br />
-      <div id="mrdlib_actionLog"></div>
+      <p>Die Empfehlungen auf dieser Webseite werden von <a href="http://mr-dlib.org/">Mr. DLib</a> zur Verf&uuml;gung gestellt, einem kostenfreien und Non-Profit Recommendation-as-a-Service Provider. Grundlage der Empfehlungen ist lediglich das aktuell von Ihnen angezeigte Dokument. Mr. DLib erhebt keine pers&ouml;nlichen Daten von Ihnen.</p>
+      <p>Um die angezeigten Empfehlungen zu verbessern, k&ouml;nnen Sie Mr. DLib jedoch erlauben eine anonyme ID in einem Cookie anzulegen und diese an die Server von Mr. DLib zu &uuml;bertragen.</p>
+      <input type="checkbox" name="mrdlib_advanced_recommendations" value="mrdlib_advanced_recommendations_enabled" /><span> Ich bin damit einverstanden, dass Mr. DLib weitere Daten erhebt um meine Empfehlungen zu verbessern.</span>
+      <p><br />Sie k&ouml;nnen die fortgeschrittenen Empfehlungen jederzeit deaktivieren, indem sie die obige Checkbox deaktivieren oder Ihre Cookies l&ouml;schen.</p>
+      <input type="submit" value="Absenden">
     </form>
   </div>
+
 </div>

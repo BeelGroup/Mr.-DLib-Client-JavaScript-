@@ -144,7 +144,7 @@ function closeSettingsDialog() {
 function callClickUrlThroughProxy(clickUrl) {
   console.log(clickUrl)
 
-  var site = "proxy_mediatum_click_forward.php?click_url=" + clickUrl;
+  var site = "//mrdlib.ase.in.tum.de/proxy_mediatum_click_forward.php?click_url=" + clickUrl;
 
   $.ajax({
     type: "GET",
@@ -163,7 +163,7 @@ function callClickUrlThroughProxy(clickUrl) {
 function get_rec() {
   // create loading animation
   var img = document.createElement("img");
-  img.src = "http://mediatum.js-client.mr-dlib.org/loading.gif";
+  img.src = "//mrdlib.ase.in.tum.de/loading.gif";
   var loading = document.getElementById("mrdlib_container");
   loading.appendChild(img);
 
@@ -173,7 +173,7 @@ function get_rec() {
   // work over title
   var title = encodeURI(title).replace(/'/g, "`");
   // construct URL
-  var site = "proxy_mediatum_recommendation_retrieval.php?id=mediatum-" + id_original + "&title=" + title;
+  var site = "//mrdlib.ase.in.tum.de/proxy_mediatum.php?id=mediatum-" + id_original + "&title=" + title;
   // check if user has enabled adavanced recommendations, and thus has a cookies identifying him,
   // in that case pass the user id to the proxy server
   if (areCookiesEnabled) {
@@ -198,3 +198,4 @@ function get_rec() {
     }
   });
 }
+

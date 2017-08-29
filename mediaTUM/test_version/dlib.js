@@ -1,23 +1,5 @@
 // called on loading the web page
 $(window).ready(function() {
-  // get title from web page
-  var titleElements = document.getElementsByClassName("field-title");
-  // check if an element has been found
-  if (titleElements.length > 0) {
-    var titleElementChildNodes = titleElements[0].childNodes;
-
-    if (titleElementChildNodes.length > 0) {
-      var titleInnerChildNodes = titleElementChildNodes[0].childNodes;
-
-      for (var i=0; i < titleInnerChildNodes.length; i++) {
-        if (titleInnerChildNodes[i].className == "mask_value") {
-          document.getElementById("mrdlib_title").innerHTML = titleInnerChildNodes[i].innerHTML;
-        }
-      }
-    }
-  }
-  
-  // get recommendations
   get_rec();
 });
 
@@ -110,7 +92,7 @@ function updateCookieSetting() {
  * Logs a given event by adding a cookie with a timestamp and event description.
  */
 function logEvent(event) {
-  setCookie("mrdlib: " + Date() + ": " + event);
+  setCookie(Date() + "=" + event);
 }
 
 // global variables used for tracking hovering over info icons
@@ -139,7 +121,7 @@ function logHoverEnd(id) {
     if (window.hoverStart != -1) {
       // log hovering for longer than three seconds over an info icon
       if ((hoverEnd-window.hoverStart) >= 3000) {
-        logEvent('hover: ' + id);
+        logEvent('hover-' + id);
       }
     }
   }
@@ -159,13 +141,29 @@ function closeSettingsDialog() {
   modal.style.display = "none";
 }
 
+function callClickUrlThroughProxy(clickUrl) {
+  console.log(clickUrl)
+
+  var site = "proxy_mediatum_click_forward.php?click_url=" + clickUrl;
+
+  $.ajax({
+    type: "GET",
+    url: site,
+    async: true,
+    timeout: 3000,  // sets timeout to 3 seconds;
+    success: function(data) {
+      console.log(data);
+    }
+  });
+}
+
 /**
  * Retrieves recommendations from MDL's proxy server and displays them in the HTML/JavaScript widget.
  */
 function get_rec() {
   // create loading animation
   var img = document.createElement("img");
-  img.src = "https://mrdlib.ase.in.tum.de/loading.gif";
+  img.src = "http://mediatum.js-client.mr-dlib.org/loading.gif";
   var loading = document.getElementById("mrdlib_container");
   loading.appendChild(img);
 
@@ -175,7 +173,7 @@ function get_rec() {
   // work over title
   var title = encodeURI(title).replace(/'/g, "`");
   // construct URL
-  var site = "https://mrdlib.ase.in.tum.de/proxy_mediatum.php?id=mediatum-" + id_original + "&title=" + title;
+  var site = "proxy_mediatum_recommendation_retrieval.php?id=mediatum-" + id_original + "&title=" + title;
   // check if user has enabled adavanced recommendations, and thus has a cookies identifying him,
   // in that case pass the user id to the proxy server
   if (areCookiesEnabled) {
@@ -196,17 +194,6 @@ function get_rec() {
       // if advanced recommendations are already enabled, set check box
       if (areCookiesEnabled()) {
         document.forms["mrdlib_advanced_recommendations_form"]["mrdlib_advanced_recommendations"].checked = true;
-        // print cookies in mrdlib_actionLog
-        // credits to https://stackoverflow.com/questions/3400759/how-can-i-list-all-cookies-for-the-current-page-with-javascript
-        var cookies = document.cookie.split(';');
-        var cookiesReadable = '';
-        for (var i = 1; i <= cookies.length; i++) {
-          cookiesReadable += i + ' ' + cookies[i-1].split("expires")[0] + "<br />";
-        }
-
-        if (cookiesReadable != '1 \n') {
-          document.getElementById("mrdlib_actionLog").innerHTML = cookiesReadable;
-        }
       }
     }
   });
