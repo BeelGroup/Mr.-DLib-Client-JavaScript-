@@ -14,7 +14,7 @@ function getCookie(name) {
   var value = "; " + document.cookie;
   var parts = value.split("; " + name + "=");
   if (parts.length == 2) {
-    return parts.pop().split(";").shift();
+    return  parts.pop().split("expires")[0];
   }
 }
 
@@ -142,8 +142,6 @@ function closeSettingsDialog() {
 }
 
 function callClickUrlThroughProxy(clickUrl) {
-  console.log(clickUrl)
-
   var site = "proxy_mediatum_click_forward.php?click_url=" + clickUrl;
 
   $.ajax({
@@ -152,7 +150,7 @@ function callClickUrlThroughProxy(clickUrl) {
     async: true,
     timeout: 3000,  // sets timeout to 3 seconds;
     success: function(data) {
-      console.log(data);
+      // do nothing
     }
   });
 }
@@ -176,7 +174,7 @@ function get_rec() {
   var site = "proxy_mediatum_recommendation_retrieval.php?id=mediatum-" + id_original + "&title=" + title;
   // check if user has enabled adavanced recommendations, and thus has a cookies identifying him,
   // in that case pass the user id to the proxy server
-  if (areCookiesEnabled) {
+  if (areCookiesEnabled()) {
     site = site + "&user=" + getCookie("mrdlib_id");
   }
 
