@@ -170,8 +170,12 @@ function get_rec() {
   var title = document.getElementById("mrdlib_title").innerHTML;
   // work over title
   var title = encodeURI(title).replace(/'/g, "`");
+
+  // check language of mediaTUM page
+  var mediaTUMLanguage = document.getElementsByClassName("selected_language")[0].innerHTML;
+
   // construct URL
-  var site = "//mrdlib.ase.in.tum.de/proxy_mediatum.php?id=mediatum-" + id_original + "&title=" + title;
+  var site = "//mrdlib.ase.in.tum.de/proxy_mediatum.php?id=mediatum-" + id_original + "&title=" + title + "&language=" + mediaTUMLanguage;
   // check if user has enabled adavanced recommendations, and thus has a cookies identifying him,
   // in that case pass the user id to the proxy server
   if (areCookiesEnabled()) {

@@ -38,6 +38,26 @@
   $id = getUrlParameter('id');
   $title = getUrlParameter('title');
   $user = getUrlParameter('user');
+  $language = getUrlParameter('language');
+
+  // handle language
+  if ($language == 'en') {
+    $langStrSimilarPublications = 'Similar Publications';
+    $langStrSettingsLabel = 'Settings / Advanced Recommendations';
+    $langStrSettingsInstructions1 = 'The recommendations on mediaTUM are provided by <a href="http://mr-dlib.org/">Mr. DLib</a>, a free and non-profit recommendation-as-a-service provider. Recommendations are only based on the content of the document that you are currently looking at. Mr. DLib is not collecting any private data from you.';
+    $langStrSettingsInstructions2 = 'However, to improve the recommendations, you may allow Mr. DLib to create an anonymous ID that is stored in a cookie and additionally transferred to the servers of Mr. DLib along with additional information.';
+    $langStrSettingsInstructions3 = 'I agree that Mr. DLib may collect additional data to improve the recommendations.';
+    $langStrSettingsInstructions4 = 'Please note that you can deactivate the advanced recommendations at any time by unchecking the boxes or deleting the cookies.';
+    $langStrSettingsSubmit = 'Submit';
+  } else {
+    $langStrSimilarPublications = '&Auml;hnliche Publikationen';
+    $langStrSettingsLabel = 'Einstellungen / Fortgeschrittene Empfehlungen';
+    $langStrSettingsInstructions1 = 'Die Empfehlungen auf dieser Webseite werden von <a href="http://mr-dlib.org/">Mr. DLib</a> zur Verf&uuml;gung gestellt, einem kostenfreien und Non-Profit Recommendation-as-a-Service Provider. Grundlage der Empfehlungen ist lediglich das aktuell von Ihnen angezeigte Dokument. Mr. DLib erhebt keine pers&ouml;nlichen Daten von Ihnen.';
+    $langStrSettingsInstructions2 = 'Um die angezeigten Empfehlungen zu verbessern, k&ouml;nnen Sie Mr. DLib jedoch erlauben eine anonyme ID in einem Cookie anzulegen und diese an die Server von Mr. DLib zu &uuml;bertragen.';
+    $langStrSettingsInstructions3 = 'Ich bin damit einverstanden, dass Mr. DLib weitere Daten erhebt um meine Empfehlungen zu verbessern.';
+    $langStrSettingsInstructions4 = 'Sie k&ouml;nnen die fortgeschrittenen Empfehlungen jederzeit deaktivieren, indem sie die obige Checkbox deaktivieren oder Ihre Cookies l&ouml;schen.';
+    $langStrSettingsSubmit = 'Absenden';
+   }
 
   // handle advanced search - include adequate style sheet
 
@@ -202,7 +222,7 @@
    * Iterate over recommendations and embed the relevant data.
    */
 ?>
-<div id="mrdlib_header">&Auml;hnliche Publikationen</div>
+<div id="mrdlib_header"><?=$langStrSimilarPublications?></div>
 <div id="mrdlib_body">
 <ul>
 <?php
@@ -316,18 +336,18 @@
 <div id="mrdlib_footer">
   <a href="http://mr-dlib.org/"><div id="mrdlib_logo_text">Powered by</div><img id="mrdlib_logo" src="//mrdlib.ase.in.tum.de/mdl_logo.gif" alt="Mr. DLib: Recommendations-as-a-service for Academia"></a>
   <div id="mrdlib_refresh_button" onclick="get_rec();"><img src="//mrdlib.ase.in.tum.de/refresh_icon.png" />Refresh</div>
-  <div id="mrdlib_settings_button" onclick="displaySettingsDialog();"><img src="//mrdlib.ase.in.tum.de/settings_icon.png" />Einstellungen / Fortgeschrittene Empfehlungen</div>
+  <div id="mrdlib_settings_button" onclick="displaySettingsDialog();"><img src="//mrdlib.ase.in.tum.de/settings_icon.png" /><?=$langStrSettingsLabel?></div>
 </div>
 <div id="mrdlib_modal">
   <div id="mrdlib_modal_content">
     <span id="mrdlib_modal_closeButton" onclick="closeSettingsDialog();">&times;</span>
-    <p><b>Einstellungen / Fortgeschrittene Empfehlungen</b></p>
+    <p><b><?=$langStrSettingsLabel?></b></p>
     <form id="mrdlib_advanced_recommendations_form" onsubmit="updateCookieSetting(); return false;">
-      <p>Die Empfehlungen auf dieser Webseite werden von <a href="http://mr-dlib.org/">Mr. DLib</a> zur Verf&uuml;gung gestellt, einem kostenfreien und Non-Profit Recommendation-as-a-Service Provider. Grundlage der Empfehlungen ist lediglich das aktuell von Ihnen angezeigte Dokument. Mr. DLib erhebt keine pers&ouml;nlichen Daten von Ihnen.</p>
-      <p>Um die angezeigten Empfehlungen zu verbessern, k&ouml;nnen Sie Mr. DLib jedoch erlauben eine anonyme ID in einem Cookie anzulegen und diese an die Server von Mr. DLib zu &uuml;bertragen.</p>
-      <input type="checkbox" name="mrdlib_advanced_recommendations" value="mrdlib_advanced_recommendations_enabled" /><span> Ich bin damit einverstanden, dass Mr. DLib weitere Daten erhebt um meine Empfehlungen zu verbessern.</span>
-      <p><br />Sie k&ouml;nnen die fortgeschrittenen Empfehlungen jederzeit deaktivieren, indem sie die obige Checkbox deaktivieren oder Ihre Cookies l&ouml;schen.</p>
-      <input type="submit" value="Absenden">
+    <p><?=$langStrSettingsInstructions1?></p>
+    <p><?=$langStrSettingsInstructions2?></p>
+      <input type="checkbox" name="mrdlib_advanced_recommendations" value="mrdlib_advanced_recommendations_enabled" /><span> <?=$langStrSettingsInstructions3?></span>
+      <p><br /><?=$langStrSettingsInstructions4?></p>
+      <input type="submit" value="<?=$langStrSettingsSubmit?>">
     </form>
   </div>
 
