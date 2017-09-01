@@ -53,7 +53,7 @@
     $langStrSimilarPublications = '&Auml;hnliche Publikationen';
     $langStrSettingsLabel = 'Einstellungen / Fortgeschrittene Empfehlungen';
     $langStrSettingsInstructions1 = 'Die Empfehlungen auf dieser Webseite werden von <a href="http://mr-dlib.org/">Mr. DLib</a> zur Verf&uuml;gung gestellt, einem kostenfreien und Non-Profit Recommendation-as-a-Service Provider. Grundlage der Empfehlungen ist lediglich das aktuell von Ihnen angezeigte Dokument. Mr. DLib erhebt keine pers&ouml;nlichen Daten von Ihnen.';
-    $langStrSettingsInstructions2 = 'Um die angezeigten Empfehlungen zu verbessern, k&ouml;nnen Sie Mr. DLib jedoch erlauben eine anonyme ID in einem Cookie anzulegen und diese an die Server von Mr. DLib zu &uuml;bertragen.';
+    $langStrSettingsInstructions2 = 'Um die angezeigten Empfehlungen zu verbessern, k&ouml;nnen Sie Mr. DLib jedoch erlauben eine anonyme ID in einem Cookie anzulegen und diese zusammen mit weiteren Informationen an die Server von Mr. DLib zu &uuml;bertragen.';
     $langStrSettingsInstructions3 = 'Ich bin damit einverstanden, dass Mr. DLib weitere Daten erhebt um meine Empfehlungen zu verbessern.';
     $langStrSettingsInstructions4 = 'Sie k&ouml;nnen die fortgeschrittenen Empfehlungen jederzeit deaktivieren, indem sie die obige Checkbox deaktivieren oder Ihre Cookies l&ouml;schen.';
     $langStrSettingsSubmit = 'Absenden';
